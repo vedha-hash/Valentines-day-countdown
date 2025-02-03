@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Countdown</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            height: 100vh;
+            background-color: #ff4d92;
+            color: white;
+            text-align: center;
+            background-image: url('roses.jpg'); /* Use the local image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-top: 50px;
+            color: #ff66b2; /* Pink color for the heading */
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            font-size: 2.5em;
+            color: #ff66b2;
+        }
+
+        .time {
+            font-size: 3em;
+            color: #ff66b2;
+        }
+
+        #message {
+            font-size: 2.5em;
+            color: darkpink;
+            font-family: 'Cursive', sans-serif;
+            display: none;
+            margin-top: 30px;
+        }
+
+        .timer-box {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Valentine's Day Countdown</h1>
+
+    <div id="countdown" class="timer-box">
+        <div id="days" class="time">00</div> days
+        <div id="hours" class="time">00</div> hours
+        <div id="minutes" class="time">00</div> minutes
+        <div id="seconds" class="time">00</div> seconds
+    </div>
+
+    <div id="message">
+        Happy Valentine's Day! I love you! 💖
+    </div>
+
+    <script>
+        function updateCountdown() {
+            // Set the date for Valentine's Day (14th Feb 2025, midnight UTC)
+            var countdownDate = new Date(Date.UTC(2025, 1, 14, 0, 0, 0, 0)).getTime();
+
+            // Get the current time (in UTC)
+            var now = new Date().getTime();
+
+            // Log current time and countdown date to the console for debugging
+            console.log("Current time: " + new Date(now));
+            console.log("Countdown target date: " + new Date(countdownDate));
+
+            // Find the time remaining
+            var timeRemaining = countdownDate - now;
+
+            // If the countdown has finished
+            if (timeRemaining <= 0) {
+                document.getElementById("countdown").style.display = "none"; // Hide countdown
+                document.getElementById("message").style.display = "block"; // Show message
+                return;
+            }
+
+            // Calculate days, hours, minutes, and seconds
+            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            // Display the results
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        // Update the countdown every second (1000ms)
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
